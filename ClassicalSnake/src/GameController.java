@@ -1,16 +1,22 @@
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.Timer;
 
-public class gameControl {
+public class GameController implements GameConstants{
 
-    int bodypart = 3;
-    int appleX;
-    int appleY;
-    int applEaten;
-    char direction = 'R';
-    boolean runing = false;
-    Timer timer;
+    private final int[] snakeX = new int[gameUnit];
+    private final int[] snakeY = new int[gameUnit];
+
+    private int bodyParts = 6;
+    private int applesEaten = 0;
+    private int appleX;
+    private int appleY;
+    private char direction = 'R';
+    private boolean running = false;
+    private Timer timer;
+    private Random random;
+
     public void startGame(){
         newApple();
 
