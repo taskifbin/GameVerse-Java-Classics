@@ -4,10 +4,12 @@ import java.awt.event.*;
 
 public class GameBoard extends JPanel implements GameConstants {
 
+    private JFrame frame;
     private GameController gameController;
 
-    public GameBoard(GameController controller) {
+    public GameBoard(GameController controller,JFrame frame) {
         this.gameController = controller;
+        this.frame = frame;
 
         setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
         setBackground(Color.DARK_GRAY);
@@ -18,6 +20,7 @@ public class GameBoard extends JPanel implements GameConstants {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                System.out.println("Key pressed: " + e.getKeyCode());
                 gameController.changeDirection(e);
             }
         });

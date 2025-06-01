@@ -5,6 +5,8 @@ import javax.swing.*;
 
 public class GameController implements GameConstants{
 
+    private JFrame frame;
+
     private final int[] snakeX = new int[gameUnit];
     private final int[] snakeY = new int[gameUnit];
 
@@ -22,7 +24,8 @@ public class GameController implements GameConstants{
     private Score score=new Score();
 
 
-    public GameController(){
+    public GameController(JFrame frame) {
+        this.frame = frame;
         random = new Random();
         //initial position
         snakeX[0] = unit * 5;
@@ -45,7 +48,7 @@ public class GameController implements GameConstants{
     }
     public void update(){
         if(!running) {return;}
-        System.out.println("Snake head: (" + snakeX[0] + ", " + snakeY[0] + ")");
+        System.out.println("Snake Head: (" + snakeX[0] + ", " + snakeY[0] + ")");
         move();
         checkApple();
         checkCollision();
@@ -70,11 +73,9 @@ public class GameController implements GameConstants{
            for (int i = 0; i < bodyParts; i++){
                if(i == 0){
                    g.setColor(Color.GREEN);
-                  // g.fillOval(snakeX[i], snakeY[i], unit, unit);
                }
                else {
                    g.setColor(new Color(0, 100, 0));
-                  // g.fillRect(snakeX[i], snakeY[i], unit, unit);
                }
                g.fillOval(snakeX[i], snakeY[i], unit, unit);
                g.setColor(Color.BLACK);
@@ -92,6 +93,27 @@ public class GameController implements GameConstants{
         g.setFont(new Font("Arial", Font.BOLD, 40));
         FontMetrics metrics = g.getFontMetrics(g.getFont());
         g.drawString("Game Over", (ScreenWidth - metrics.stringWidth("Game Over")) / 2, ScreenHeight / 2);
+
+        // Delay UI changes slightly so the button doesn't flicker in paint
+        SwingUtilities.invokeLater(() -> {
+            JButton continueBtn = new JButton("Continue");
+            continueBtn.setBounds((ScreenWidth - 120) / 2, (ScreenHeight / 2) + 40, 120, 30);
+
+            // Add to layered pane for proper visibility
+            JLayeredPane layeredPane = frame.getLayeredPane();
+            layeredPane.add(continueBtn, JLayeredPane.POPUP_LAYER);
+            continueBtn.setFocusable(false);
+
+            continueBtn.addActionListener(e -> {
+                layeredPane.remove(continueBtn);
+                layeredPane.repaint();
+                SnakeMenu menu = new SnakeMenu(frame);
+                frame.setContentPane(menu);
+                frame.pack();
+                frame.revalidate();
+                frame.repaint();
+            });
+        });
 
     }
 

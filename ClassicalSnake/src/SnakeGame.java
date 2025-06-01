@@ -1,12 +1,19 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class SnakeGame {
+public class SnakeGame{
     SnakeGame(){
-        GameBoard board=new GameBoard(new GameController());
         JFrame frame=new JFrame("Classical Snake Game");
-        frame.add(board);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // GameBoard board=new GameBoard(new GameController());
+        //frame.add(board);
+
+        //Snake menu
+        SnakeMenu smenu = new SnakeMenu(frame);
+        frame.setContentPane(smenu);
         frame.pack();
+
+        frame.setSize(400,400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
