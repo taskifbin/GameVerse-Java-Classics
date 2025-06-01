@@ -1,56 +1,31 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Random;
+import java.awt.event.*;
 
-public class GameBoard extends JPanel implements ActionListener,GameConstants {
+public class GameBoard extends JPanel implements GameConstants {
 
-    GameBoard(){}
     private GameController gameController;
 
-    //    static final int screenWidth = 800;
-//    static final int screenHeight = 600;
-//    static final int unit = 20;
-//    static final int gameUnit = (screenWidth * screenHeight) / (unit * unit);
-//    static final int Delay = 80;
-//    final int x[] = new int[gameUnit];
-//    final int y[] = new int[gameUnit];
-//
-//    int bodypart = 3;
-//    int appleX;
-//    int appleY;
-//    int applEaten;
-//    char direction = 'R';
-//    boolean runing = false;
-//    Timer timer;
-    Random random;
+    public GameBoard(GameController controller) {
+        this.gameController = controller;
 
-    GameBoard(GameController gameController) {
-        random = new Random();
-        this.gameController = gameController;
-        this.setPreferredSize(new Dimension(ScreeenWidth, ScreenHeight));
-        this.setBackground(Color.DARK_GRAY);
-        this.setFocusable(true);
-        this.addKeyListener(new MyKeyAdapter(gameController));
+        setPreferredSize(new Dimension(ScreenWidth, ScreenHeight));
+        setBackground(Color.DARK_GRAY);
+        setFocusable(true);
+
+        controller.setRepaintCallback(this::repaint);
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gameController.changeDirection(e);
+            }
+        });
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // Game logic here
-        repaint();  // Redraw the panel
-    }
-    private class MyKeyAdapter extends KeyAdapter {
-    private GameController Controller;
-
-    public MyKeyAdapter(GameController Controller) {
-        this.Controller = Controller;
-    }
-        @Override
-        public void keyPressed(KeyEvent e) {
-
-        }
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        gameController.draw(g);
     }
 }
