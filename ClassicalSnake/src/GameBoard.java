@@ -26,6 +26,19 @@ public class GameBoard extends JPanel implements GameConstants {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        //For border
+        g.setColor(Color.WHITE);
+        g.drawRect(0, 30, ScreenWidth - 1, ScreenHeight - 31);
+
+        // Draw score bar
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, ScreenWidth, 30);
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 16));
+        g.drawString("SCORE: " + gameController.getScore().getCurrentScore(), 10, 20);
+        g.drawString("HIGH SCORE: " + gameController.getScore().getHighScore(), ScreenWidth - 170, 20);
+
         gameController.draw(g);
     }
 }

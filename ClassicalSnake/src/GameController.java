@@ -12,7 +12,6 @@ public class GameController implements GameConstants{
 
     static final int Delay = 80;
     private int bodyParts = 3;
-    private int applesEaten = 0;
     private int appleX;
     private int appleY;
     private char direction = 'R';
@@ -20,15 +19,19 @@ public class GameController implements GameConstants{
     private Timer timer;
     private Random random;
 
+    private Score score=new Score();
+
+
     public GameController(){
         random = new Random();
         //initial position
         snakeX[0] = unit * 5;
-        snakeY[0] = unit * 5;
+        snakeY[0] = 30 +  unit * 5;//to remove from topbar
         startGame();
     }
 
     public void startGame(){
+        score.reset();
         placeApple();
         running = true;
         timer = new Timer(Delay, e -> update());
@@ -36,8 +39,9 @@ public class GameController implements GameConstants{
 
     }
     public void placeApple(){
+
         appleX = random.nextInt(ScreenWidth / unit) * unit;
-        appleY = random.nextInt(ScreenHeight / unit) * unit;
+        appleY = 30 + random.nextInt((ScreenHeight-30) / unit) * unit;//to remove from top bar
     }
     public void update(){
         if(!running) {return;}
@@ -56,17 +60,25 @@ public class GameController implements GameConstants{
            //Draw apple
            g.setColor(Color.RED);
            g.fillOval(appleX, appleY, unit, unit);
+           g.setColor(Color.BLACK);
+           g.drawOval(appleX, appleY, unit, unit); // Apple border
+
+           g.setColor(Color.RED);
+           g.fillOval(appleX, appleY, unit, unit);
 
            //Draw Snake
            for (int i = 0; i < bodyParts; i++){
                if(i == 0){
                    g.setColor(Color.GREEN);
-                   g.fillRect(snakeX[i], snakeY[i], unit, unit);
+                  // g.fillOval(snakeX[i], snakeY[i], unit, unit);
                }
                else {
-                   g.setColor(new Color(25, 80, 245));
-                   g.fillRect(snakeX[i], snakeY[i], unit, unit);
+                   g.setColor(new Color(0, 100, 0));
+                  // g.fillRect(snakeX[i], snakeY[i], unit, unit);
                }
+               g.fillOval(snakeX[i], snakeY[i], unit, unit);
+               g.setColor(Color.BLACK);
+               g.drawOval(snakeX[i], snakeY[i], unit, unit);
            }
        }
        else gameOver(g);
@@ -101,7 +113,7 @@ public class GameController implements GameConstants{
     public void checkApple(){
         if (snakeX[0] == appleX && snakeY[0] == appleY) {
             bodyParts++;
-            applesEaten++;
+            score.increment();
             placeApple();
         }
     }
@@ -115,10 +127,13 @@ public class GameController implements GameConstants{
         }
 
         // Check wall collisions
-        if (snakeX[0] < 0 || snakeX[0] >= ScreenWidth || snakeY[0] < 0 || snakeY[0] >= ScreenHeight) {
+        if (snakeX[0] < 0 || snakeX[0] >= ScreenWidth || snakeY[0] < 30 || snakeY[0] >= ScreenHeight) {
             running = false;
             timer.stop();
         }
+    }
+    public Score getScore() {
+        return score;
     }
     public void changeDirection(KeyEvent e) {
 
