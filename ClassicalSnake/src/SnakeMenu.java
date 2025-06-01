@@ -11,7 +11,7 @@ public class SnakeMenu extends JPanel{
 
         JButton newGamebtn=new JButton("New Game");
         JButton resumebtn=new JButton("Resume");
-        JButton scoresbtn=new JButton("Scores");
+        JButton scoresbtn=new JButton("High Score");
         JButton returnMenubtn=new JButton("Return to Main Menu");
         JButton exitbtn=new JButton("Exit");
 
