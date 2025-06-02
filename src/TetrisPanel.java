@@ -13,7 +13,7 @@ public class TetrisPanel extends JPanel implements Runnable {
 
         // panel
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.setBackground(Color.BLACK);
+        this.setBackground(Color.LIGHT_GRAY);
         this.setLayout(null);
 
         // Tetris Manager
