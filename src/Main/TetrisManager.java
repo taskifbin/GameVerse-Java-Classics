@@ -1,6 +1,8 @@
 package Main;
 
 import java.awt.*;
+import java.util.Random;
+
 import Mino.*;
 
 public class TetrisManager {
@@ -37,11 +39,45 @@ public class TetrisManager {
         MINO_START_Y = top_y + Block.SIZE;
 
         // Set the Starting Mino
-        CurrentMino = new Mino_L1();
+        CurrentMino = pickMino();
         CurrentMino.setXY(MINO_START_X, MINO_START_Y);
 
 
     }
+
+    private Mino pickMino() {
+
+        // Get a random Mino
+        Mino mino = null;
+        int rand = new Random().nextInt(7);
+
+        switch (rand) {
+            case 0:
+                mino = new Mino_L1();
+                break;
+            case 1:
+                mino = new Mino_L2();
+                break;
+            case 2:
+                mino = new Mino_Square();
+                break;
+            case 3:
+                mino = new Mino_I();
+                break;
+            case 4:
+                mino = new Mino_Z1();
+                break;
+            case 5:
+                mino = new Mino_Z2();
+                break;
+            case 6:
+                mino = new Mino_T();
+                break;
+        }
+        return mino;
+    }
+
+
 
     public void update() {
 

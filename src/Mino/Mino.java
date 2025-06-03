@@ -9,6 +9,7 @@ public class Mino {
     public Block b[] = new Block[4];
     public Block tempB[] = new Block[4];
     int AutoDropCounter = 0;
+    public int direction = 1; // Each Mino have 4 Direction for Rotation
 
     public void create(Color c){
         b[0] = new Block(c);
@@ -27,7 +28,23 @@ public class Mino {
 
     public void updateXY(int direction){
 
+        this.direction = direction;
+
+        b[0].x = tempB[0].x;
+        b[0].y = tempB[0].y;
+        b[1].x = tempB[1].x;
+        b[1].y = tempB[1].y;
+        b[2].x = tempB[2].x;
+        b[2].y = tempB[2].y;
+        b[3].x = tempB[3].x;
+        b[3].y = tempB[3].y;
+
     }
+
+    public void getDirection1(){}
+    public void getDirection2(){}
+    public void getDirection3(){}
+    public void getDirection4(){}
 
     public void update(){
 
@@ -35,7 +52,13 @@ public class Mino {
 
         // pressed up for rotate
         if(TetrisKeyHandle.upPressed){
-
+            switch(direction){
+                case 1:getDirection2();break;
+                case 2:getDirection3();break;
+                case 3:getDirection4();break;
+                case 4:getDirection1();break;
+            }
+            TetrisKeyHandle.upPressed = false;
         }
 
         if(TetrisKeyHandle.downPressed){
