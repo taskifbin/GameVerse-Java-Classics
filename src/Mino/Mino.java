@@ -1,11 +1,14 @@
 package Mino;
 
 import java.awt.*;
+import Main.*;
+
 
 public class Mino {
 
     public Block b[] = new Block[4];
     public Block tempB[] = new Block[4];
+    int AutoDropCounter = 0;
 
     public void create(Color c){
         b[0] = new Block(c);
@@ -28,6 +31,17 @@ public class Mino {
 
     public void update(){
 
+        // the counter increase in every frames
+        AutoDropCounter++;
+        if(AutoDropCounter == TetrisManager.DropInterval){
+
+            b[0].y += Block.SIZE;
+            b[1].y += Block.SIZE;
+            b[2].y += Block.SIZE;
+            b[3].y += Block.SIZE;
+            AutoDropCounter = 0;
+
+        }
     }
 
     public void draw(Graphics2D g2) {

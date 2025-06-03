@@ -1,5 +1,6 @@
+package Main;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class TetrisDisplay {
     TetrisPanel gamePanel = new TetrisPanel();
@@ -18,6 +19,8 @@ public class TetrisDisplay {
         // adding item to Tetris Frame
         TetrisFrame.add(gamePanel);
         TetrisFrame.pack();
+
+        gamePanel.LaunchGame();
 
     }
 }

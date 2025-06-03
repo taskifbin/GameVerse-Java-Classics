@@ -1,9 +1,11 @@
+package Main;
+
 import java.awt.*;
 import Mino.*;
 
 public class TetrisManager {
 
-    // Main Play Area
+    // Main.Main Play Area
     final int WIDTH = 360;
     final int HEIGHT = 720;
     public static int left_x;
@@ -17,10 +19,14 @@ public class TetrisManager {
     final int MINO_START_X;
     final int MINO_START_Y;
 
+    // Tetris Drop
+    public static int DropInterval = 60; // mino drops in every 60 frames
+
+
 
     public TetrisManager() {
 
-        // Main Play Area in the Frame
+        // Main.Main Play Area in the Frame
         left_x = (TetrisPanel.WIDTH/2) - (WIDTH/2); // that's in the middle
         right_x = left_x + WIDTH;
         top_y = 80;
@@ -33,22 +39,25 @@ public class TetrisManager {
         // Set the Starting Mino
         CurrentMino = new Mino_L1();
         CurrentMino.setXY(MINO_START_X, MINO_START_Y);
+
+
     }
 
     public void update() {
 
         CurrentMino.update();
+
     }
 
     public void draw(Graphics2D g2) {
 
         // * First Fill box then border
 
-        // Main Game Frame
+        // Main.Main Game Frame
         g2.setColor(Color.BLACK);
         g2.fillRect(left_x, top_y, WIDTH, HEIGHT);
 
-        // Main Game Frame Border
+        // Main.Main Game Frame Border
         g2.setColor(Color.GREEN);
         g2.setStroke(new BasicStroke(8f));
         g2.drawRect(left_x-4, top_y-4, WIDTH+8, HEIGHT+9);
