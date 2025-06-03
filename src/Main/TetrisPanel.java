@@ -1,7 +1,9 @@
 package Main;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public class TetrisPanel extends JPanel implements Runnable {
     public static final int WIDTH = 1400;
@@ -17,6 +19,10 @@ public class TetrisPanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.LIGHT_GRAY);
         this.setLayout(null);
+
+        // Implement KeyListener
+        this.addKeyListener(new TetrisKeyHandle());
+        this.setFocusable(true);
 
         // Tetris Manager
         tetrisManager = new TetrisManager();

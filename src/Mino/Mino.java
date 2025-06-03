@@ -31,6 +31,46 @@ public class Mino {
 
     public void update(){
 
+        // Move the Mino using key
+
+        // pressed up for rotate
+        if(TetrisKeyHandle.upPressed){
+
+        }
+
+        if(TetrisKeyHandle.downPressed){
+            b[0].y += Block.SIZE;
+            b[1].y += Block.SIZE;
+            b[2].y += Block.SIZE;
+            b[3].y += Block.SIZE;
+
+            // When moved down, reset the autoDropCounter
+            AutoDropCounter = 0;
+
+            TetrisKeyHandle.downPressed = false;
+        }
+        if(TetrisKeyHandle.leftPressed){
+
+            b[0].x -= Block.SIZE;
+            b[1].x -= Block.SIZE;
+            b[2].x -= Block.SIZE;
+            b[3].x -= Block.SIZE;
+
+            AutoDropCounter = 0;
+
+            TetrisKeyHandle.leftPressed = false;
+        }
+        if(TetrisKeyHandle.rightPressed){
+
+            b[0].x += Block.SIZE;
+            b[1].x += Block.SIZE;
+            b[2].x += Block.SIZE;
+            b[3].x += Block.SIZE;
+
+            AutoDropCounter = 0;
+            TetrisKeyHandle.rightPressed = false;
+        }
+
         // the counter increase in every frames
         AutoDropCounter++;
         if(AutoDropCounter == TetrisManager.DropInterval){
