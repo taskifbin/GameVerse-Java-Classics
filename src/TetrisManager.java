@@ -1,4 +1,5 @@
 import java.awt.*;
+import Mino.*;
 
 public class TetrisManager {
 
@@ -12,6 +13,10 @@ public class TetrisManager {
 
 
     // Mino
+    Mino CurrentMino;
+    final int MINO_START_X;
+    final int MINO_START_Y;
+
 
     public TetrisManager() {
 
@@ -20,10 +25,19 @@ public class TetrisManager {
         right_x = left_x + WIDTH;
         top_y = 80;
         bottom_y = top_y + HEIGHT;
+
+        // Mino Start Position
+        MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
+        MINO_START_Y = top_y + Block.SIZE;
+
+        // Set the Starting Mino
+        CurrentMino = new Mino_L1();
+        CurrentMino.setXY(MINO_START_X, MINO_START_Y);
     }
 
     public void update() {
 
+        CurrentMino.update();
     }
 
     public void draw(Graphics2D g2) {
@@ -58,6 +72,10 @@ public class TetrisManager {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawString("NEXT", x+60, y+60);
 
+        // Draw the CurrentMino
+        if(CurrentMino != null){
+            CurrentMino.draw(g2);
+        }
 
     }
 }
