@@ -10,6 +10,9 @@ public class TetrisManager {
     public static int top_y;
     public static int bottom_y;
 
+
+    // Mino
+
     public TetrisManager() {
 
         // Main Play Area in the Frame
