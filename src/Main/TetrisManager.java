@@ -110,11 +110,66 @@ public class TetrisManager {
             CurrentMino.setXY(MINO_START_X, MINO_START_Y);
             NextMino = RandomMino();
             NextMino.setXY(NEXT_MINO_X, NEXT_MINO_Y);
+
+            // when a mino becomes deactive, check if line's can be deleted
+            CheckDelete();
         }
 
 
         CurrentMino.update();
 
+    }
+
+    private void CheckDelete(){
+
+        int x = left_x;
+        int y = top_y;
+        int BlockCount = 0;
+
+        while(x < right_x && y < bottom_y){
+
+            for(int i=0;i<staticsBlocks.size();i++){
+                // if in (x,y) there is block then it count increase
+                if(staticsBlocks.get(i).x == x && staticsBlocks.get(i).y == y){
+                    BlockCount++;
+                }
+            }
+
+            x += Block.SIZE;
+
+            if(x == right_x){
+
+                // if block count is 12 then this line is filled
+                if(BlockCount == 12){
+
+                    for(int i=staticsBlocks.size()-1;i>=0;i--){
+
+                        // remove all the block in y lines
+                        // we need to delete reversely otherwise the index will change
+
+                        if(staticsBlocks.get(i).y == y){
+                            staticsBlocks.remove(i);
+                        }
+
+                    }
+
+                    // a line has been deleted so need to slide down all other blocks that are above it
+                    for(int i=0;i<staticsBlocks.size();i++){
+                        // if a block is abovs the current y, move it down by the block size
+                        if(staticsBlocks.get(i).y < y){
+                            staticsBlocks.get(i).y += Block.SIZE;
+                        }
+                    }
+
+                }
+
+                BlockCount = 0;
+                x = left_x;
+                y += Block.SIZE;
+            }
+
+
+        }
     }
 
     public void draw(Graphics2D g2) {
