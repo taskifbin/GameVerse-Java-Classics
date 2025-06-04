@@ -20,13 +20,13 @@ public class Mino_L2 extends Mino {
         b[3].y = b[0].y + Block.SIZE;
     }
 
-    public void getDirection1(int x, int y) {
+    public void getDirection1() {
         //   *
         //   *
         // * *
 
-        tempB[0].x = x;
-        tempB[0].y = y;
+        tempB[0].x = b[0].x;
+        tempB[0].y = b[0].y;
         tempB[1].x = b[0].x;
         tempB[1].y = b[0].y - Block.SIZE;
         tempB[2].x = b[0].x;
@@ -37,7 +37,7 @@ public class Mino_L2 extends Mino {
         updateXY(1);
 
     }
-    public void getDirection2(int x, int y) {
+    public void getDirection2() {
 
         // *
         // * * *
@@ -55,7 +55,7 @@ public class Mino_L2 extends Mino {
 
     }
 
-    public void getDirection3(int x, int y) {
+    public void getDirection3() {
         // * *
         // *
         // *
@@ -70,7 +70,7 @@ public class Mino_L2 extends Mino {
 
         updateXY(3);
     }
-    public void getDirection4(int x, int y) {
+    public void getDirection4() {
         //
         // * * *
         //     *

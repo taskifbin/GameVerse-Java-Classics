@@ -39,13 +39,13 @@ public class TetrisManager {
         MINO_START_Y = top_y + Block.SIZE;
 
         // Set the Starting Mino
-        CurrentMino = pickMino();
+        CurrentMino = RandomMino();
         CurrentMino.setXY(MINO_START_X, MINO_START_Y);
 
 
     }
 
-    private Mino pickMino() {
+    private Mino RandomMino() {
 
         // Get a random Mino
         Mino mino = null;
