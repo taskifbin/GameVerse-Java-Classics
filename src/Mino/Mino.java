@@ -10,6 +10,8 @@ public class Mino {
     public Block tempB[] = new Block[4];
     int AutoDropCounter = 0;
     public int direction = 1; // Each Mino have 4 Direction for Rotation
+    boolean leftCollision, rightCollision, downCollision;
+    public boolean active = true;
 
     public void create(Color c){
         b[0] = new Block(c);
@@ -28,16 +30,23 @@ public class Mino {
 
     public void updateXY(int direction){
 
-        this.direction = direction;
+        checkRoatationCollision();
 
-        b[0].x = tempB[0].x;
-        b[0].y = tempB[0].y;
-        b[1].x = tempB[1].x;
-        b[1].y = tempB[1].y;
-        b[2].x = tempB[2].x;
-        b[2].y = tempB[2].y;
-        b[3].x = tempB[3].x;
-        b[3].y = tempB[3].y;
+        // if collision is occur then we can not rotate mino
+        if(leftCollision == false && rightCollision == false && downCollision == false) {
+
+
+            this.direction = direction;
+
+            b[0].x = tempB[0].x;
+            b[0].y = tempB[0].y;
+            b[1].x = tempB[1].x;
+            b[1].y = tempB[1].y;
+            b[2].x = tempB[2].x;
+            b[2].y = tempB[2].y;
+            b[3].x = tempB[3].x;
+            b[3].y = tempB[3].y;
+        }
 
     }
 
@@ -45,6 +54,87 @@ public class Mino {
     public void getDirection2(){}
     public void getDirection3(){}
     public void getDirection4(){}
+
+    public void checkMovementCollision(){
+
+        leftCollision = false;
+        rightCollision = false;
+        downCollision = false;
+
+        // always check block collision
+        checkBlockCollision();
+
+
+        // Check Frame Collision
+
+
+        for(int i = 0; i < b.length; i++){
+
+            // left wall
+            if(b[i].x == TetrisManager.left_x){
+                leftCollision = true;
+            }
+
+            if(b[i].x + Block.SIZE == TetrisManager.right_x){
+                rightCollision = true;
+            }
+
+            if(b[i].y + Block.SIZE == TetrisManager.bottom_y){
+                downCollision = true;
+            }
+        }
+    }
+
+    public void checkRoatationCollision(){
+        leftCollision = false;
+        rightCollision = false;
+        downCollision = false;
+
+        // always check Block collision
+        checkBlockCollision();
+
+
+        for(int i = 0; i < b.length; i++){
+
+            if(tempB[i].x < TetrisManager.left_x){
+                leftCollision = true;
+            }
+
+            if(tempB[i].x + Block.SIZE > TetrisManager.right_x){
+                rightCollision = true;
+            }
+
+            if(tempB[i].y + Block.SIZE > TetrisManager.bottom_y){
+                downCollision = true;
+            }
+        }
+    }
+
+    public void checkBlockCollision(){
+
+        for(int i=0;i<TetrisManager.staticsBlocks.size();i++){
+
+            int curr_x = TetrisManager.staticsBlocks.get(i).x;
+            int curr_y = TetrisManager.staticsBlocks.get(i).y;
+
+            for(int j=0;j<b.length;j++){
+                // down
+                if(b[j].y + Block.SIZE == curr_y && b[j].x == curr_x){
+                    downCollision = true;
+                }
+                // left
+                if(b[j].x - Block.SIZE == curr_x && b[j].y == curr_y){
+                    leftCollision = true;
+                }
+
+                // right
+                if(b[j].x + Block.SIZE == curr_x && b[j].y == curr_y){
+                    rightCollision = true;
+                }
+            }
+
+        }
+    }
 
     public void update(){
 
@@ -61,49 +151,66 @@ public class Mino {
             TetrisKeyHandle.upPressed = false;
         }
 
-        if(TetrisKeyHandle.downPressed){
-            b[0].y += Block.SIZE;
-            b[1].y += Block.SIZE;
-            b[2].y += Block.SIZE;
-            b[3].y += Block.SIZE;
+        checkMovementCollision();
 
-            // When moved down, reset the autoDropCounter
-            AutoDropCounter = 0;
+        if(TetrisKeyHandle.downPressed){
+
+            if(downCollision == false) {
+                b[0].y += Block.SIZE;
+                b[1].y += Block.SIZE;
+                b[2].y += Block.SIZE;
+                b[3].y += Block.SIZE;
+
+                // When moved down, reset the autoDropCounter
+                AutoDropCounter = 0;
+            }
 
             TetrisKeyHandle.downPressed = false;
         }
         if(TetrisKeyHandle.leftPressed){
 
-            b[0].x -= Block.SIZE;
-            b[1].x -= Block.SIZE;
-            b[2].x -= Block.SIZE;
-            b[3].x -= Block.SIZE;
+            if(leftCollision == false) {
 
-            AutoDropCounter = 0;
+                b[0].x -= Block.SIZE;
+                b[1].x -= Block.SIZE;
+                b[2].x -= Block.SIZE;
+                b[3].x -= Block.SIZE;
+
+            }
+
 
             TetrisKeyHandle.leftPressed = false;
         }
         if(TetrisKeyHandle.rightPressed){
 
-            b[0].x += Block.SIZE;
-            b[1].x += Block.SIZE;
-            b[2].x += Block.SIZE;
-            b[3].x += Block.SIZE;
+            if(rightCollision == false) {
+
+
+                b[0].x += Block.SIZE;
+                b[1].x += Block.SIZE;
+                b[2].x += Block.SIZE;
+                b[3].x += Block.SIZE;
+            }
 
             AutoDropCounter = 0;
             TetrisKeyHandle.rightPressed = false;
         }
 
-        // the counter increase in every frames
-        AutoDropCounter++;
-        if(AutoDropCounter == TetrisManager.DropInterval){
+        if(downCollision){
+            active = false;
+        }
+        else {
+            // the counter increase in every frames
+            AutoDropCounter++;
+            if (AutoDropCounter == TetrisManager.DropInterval) {
 
-            b[0].y += Block.SIZE;
-            b[1].y += Block.SIZE;
-            b[2].y += Block.SIZE;
-            b[3].y += Block.SIZE;
-            AutoDropCounter = 0;
+                b[0].y += Block.SIZE;
+                b[1].y += Block.SIZE;
+                b[2].y += Block.SIZE;
+                b[3].y += Block.SIZE;
+                AutoDropCounter = 0;
 
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 import Mino.*;
@@ -24,6 +25,11 @@ public class TetrisManager {
     // Tetris Drop
     public static int DropInterval = 60; // mino drops in every 60 frames
 
+    // Next Mino
+    Mino NextMino;
+    final int NEXT_MINO_X;
+    final int NEXT_MINO_Y;
+    public static ArrayList<Block> staticsBlocks = new ArrayList<Block>();
 
 
     public TetrisManager() {
@@ -41,6 +47,13 @@ public class TetrisManager {
         // Set the Starting Mino
         CurrentMino = RandomMino();
         CurrentMino.setXY(MINO_START_X, MINO_START_Y);
+
+        // Next Mino
+        NEXT_MINO_X = right_x + 175;
+        NEXT_MINO_Y = top_y + 620;
+
+        NextMino = RandomMino();
+        NextMino.setXY(NEXT_MINO_X, NEXT_MINO_Y);
 
 
     }
@@ -81,6 +94,23 @@ public class TetrisManager {
 
     public void update() {
 
+        // Check if current mino is active
+        if(CurrentMino.active == false){
+
+            // if the mino is not active, put it into the Array Blocks
+            staticsBlocks.add(CurrentMino.b[0]);
+            staticsBlocks.add(CurrentMino.b[1]);
+            staticsBlocks.add(CurrentMino.b[2]);
+            staticsBlocks.add(CurrentMino.b[3]);
+
+            // replace the currentMino with the NEXT Mino
+            CurrentMino = NextMino;
+            CurrentMino.setXY(MINO_START_X, MINO_START_Y);
+            NextMino = RandomMino();
+            NextMino.setXY(NEXT_MINO_X, NEXT_MINO_Y);
+        }
+
+
         CurrentMino.update();
 
     }
@@ -100,7 +130,7 @@ public class TetrisManager {
 
         // Draw Next Block Frame
 
-        int x = right_x + 100;
+        int x = right_x + 105;
         int y = bottom_y - 200;
 
         // Next BLock
@@ -115,11 +145,28 @@ public class TetrisManager {
         g2.setColor(Color.RED);
         g2.setFont(new Font("Arial", Font.BOLD, 30));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2.drawString("NEXT", x+60, y+60);
+        g2.drawString("NEXT", x+60, y+50);
 
         // Draw the CurrentMino
         if(CurrentMino != null){
             CurrentMino.draw(g2);
+        }
+
+        // Draw the Next Mino
+        NextMino.draw(g2);
+
+        // Draw static array blocks
+        for(int i=0;i<staticsBlocks.size();i++){
+            staticsBlocks.get(i).draw(g2);
+        }
+
+        // Draw Pause
+        g2.setFont(new Font("Arial", Font.BOLD, 30));
+        g2.setColor(Color.RED);
+        if(TetrisKeyHandle.pausePressed){
+            x = left_x + 120;
+            y = top_y + HEIGHT/2;
+            g2.drawString("PAUSED", x, y);
         }
 
     }

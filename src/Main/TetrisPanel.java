@@ -58,7 +58,10 @@ public class TetrisPanel extends JPanel implements Runnable {
     }
 
     private void update(){
-        tetrisManager.update();
+
+        if(TetrisKeyHandle.pausePressed == false) {
+            tetrisManager.update();
+        }
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);

@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class TetrisKeyHandle implements KeyListener {
 
-    public static boolean upPressed, downPressed, leftPressed, rightPressed;
+    public static boolean upPressed, downPressed, leftPressed, rightPressed, pausePressed;
 
 
     @Override
@@ -28,6 +28,14 @@ public class TetrisKeyHandle implements KeyListener {
         }
         if(code == KeyEvent.VK_D){
             rightPressed = true;
+        }
+        if(code == KeyEvent.VK_SPACE){
+            if(pausePressed){
+                pausePressed = false;
+            }
+            else{
+                pausePressed = true;
+            }
         }
 
     }
