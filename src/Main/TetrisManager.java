@@ -103,6 +103,8 @@ public class TetrisManager {
             staticsBlocks.add(CurrentMino.b[2]);
             staticsBlocks.add(CurrentMino.b[3]);
 
+            CurrentMino.deactivating = false;
+
             // replace the currentMino with the NEXT Mino
             CurrentMino = NextMino;
             CurrentMino.setXY(MINO_START_X, MINO_START_Y);

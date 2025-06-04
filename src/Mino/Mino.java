@@ -12,6 +12,8 @@ public class Mino {
     public int direction = 1; // Each Mino have 4 Direction for Rotation
     boolean leftCollision, rightCollision, downCollision;
     public boolean active = true;
+    public boolean deactivating;
+    int deactivationCounter = 0;
 
     public void create(Color c){
         b[0] = new Block(c);
@@ -138,7 +140,9 @@ public class Mino {
 
     public void update(){
 
-        // Move the Mino using key
+        if(deactivating){
+            deactivating();
+        }
 
         // pressed up for rotate
         if(TetrisKeyHandle.upPressed){
@@ -197,7 +201,7 @@ public class Mino {
         }
 
         if(downCollision){
-            active = false;
+            deactivating = true;
         }
         else {
             // the counter increase in every frames
@@ -210,6 +214,22 @@ public class Mino {
                 b[3].y += Block.SIZE;
                 AutoDropCounter = 0;
 
+            }
+        }
+    }
+
+    private void deactivating(){
+        deactivationCounter++;
+
+        // wait 45 frames for deactive
+        if(deactivationCounter == 45){
+
+            deactivationCounter = 0;
+            checkMovementCollision(); // check if the bottom is still hitting
+
+            // if the bottom is still hitting after 45 frames, deactive the mino
+            if(downCollision){
+                active = false;
             }
         }
     }
