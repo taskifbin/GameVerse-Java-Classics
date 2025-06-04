@@ -31,6 +31,11 @@ public class TetrisManager {
     final int NEXT_MINO_Y;
     public static ArrayList<Block> staticsBlocks = new ArrayList<Block>();
 
+    // Effect
+    boolean EffectCounterOn;
+    int EffectCounter;
+    ArrayList<Integer> effectY = new ArrayList<>();
+
 
     public TetrisManager() {
 
@@ -142,6 +147,9 @@ public class TetrisManager {
                 // if block count is 12 then this line is filled
                 if(BlockCount == 12){
 
+                    EffectCounterOn = true;
+                    effectY.add(y);
+
                     for(int i=staticsBlocks.size()-1;i>=0;i--){
 
                         // remove all the block in y lines
@@ -215,6 +223,22 @@ public class TetrisManager {
         // Draw static array blocks
         for(int i=0;i<staticsBlocks.size();i++){
             staticsBlocks.get(i).draw(g2);
+        }
+
+        // Draw Effect
+        if(EffectCounterOn){
+            EffectCounter++;
+
+            g2.setColor(Color.RED);
+            for(int i=0;i< effectY.size();i++){
+                g2.fillRect(left_x, effectY.get(i), WIDTH, Block.SIZE);
+            }
+
+            if(EffectCounter == 10){
+                EffectCounter = 0;
+                EffectCounterOn = false;
+                effectY.clear();
+            }
         }
 
         // Draw Pause
