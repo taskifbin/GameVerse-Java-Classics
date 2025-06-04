@@ -36,6 +36,9 @@ public class TetrisManager {
     int EffectCounter;
     ArrayList<Integer> effectY = new ArrayList<>();
 
+    // Game over
+    boolean GameOver;
+
 
     public TetrisManager() {
 
@@ -107,6 +110,12 @@ public class TetrisManager {
             staticsBlocks.add(CurrentMino.b[1]);
             staticsBlocks.add(CurrentMino.b[2]);
             staticsBlocks.add(CurrentMino.b[3]);
+
+            // check if game over or not
+            if(CurrentMino.b[0].x == MINO_START_X && CurrentMino.b[0].y == MINO_START_Y){
+                // that means mino did not change it's possible from starting position
+                GameOver = true;
+            }
 
             CurrentMino.deactivating = false;
 
@@ -241,10 +250,15 @@ public class TetrisManager {
             }
         }
 
-        // Draw Pause
+        // Draw Pause and Game over
         g2.setFont(new Font("Arial", Font.BOLD, 30));
-        g2.setColor(Color.RED);
-        if(TetrisKeyHandle.pausePressed){
+        g2.setColor(Color.YELLOW);
+        if(GameOver){
+            x = left_x + 100;
+            y = top_y + 400;
+            g2.drawString("Game Over", x, y);
+        }
+        else if(TetrisKeyHandle.pausePressed){
             x = left_x + 120;
             y = top_y + HEIGHT/2;
             g2.drawString("PAUSED", x, y);

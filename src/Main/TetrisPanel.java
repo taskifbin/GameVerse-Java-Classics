@@ -59,7 +59,7 @@ public class TetrisPanel extends JPanel implements Runnable {
 
     private void update(){
 
-        if(TetrisKeyHandle.pausePressed == false) {
+        if(TetrisKeyHandle.pausePressed == false && tetrisManager.GameOver == false) {
             tetrisManager.update();
         }
     }
