@@ -1,3 +1,5 @@
+package ClassicalSnake;
+
 import javax.swing.*;
 
 public class SnakeGame{

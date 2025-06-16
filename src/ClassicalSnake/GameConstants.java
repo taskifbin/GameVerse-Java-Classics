@@ -1,3 +1,5 @@
+package ClassicalSnake;
+
 public interface GameConstants {
     int ScreenWidth = 800;
     int ScreenHeight = 630;

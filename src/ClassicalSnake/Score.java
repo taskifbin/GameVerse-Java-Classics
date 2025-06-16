@@ -1,3 +1,5 @@
+package ClassicalSnake;
+
 public class Score {
     private int currentScore;
     private int highScore;

@@ -23,7 +23,7 @@ public class TetrisManager {
     final int MINO_START_Y;
 
     // Tetris Drop
-    public static int DropInterval = 60; // mino drops in every 60 frames
+    public static int DropInterval = 30; // mino drops in every 45 frames
 
     // Next Mino
     Mino NextMino;
@@ -38,6 +38,11 @@ public class TetrisManager {
 
     // Game over
     boolean GameOver;
+
+    // Score
+    int level = 1;
+    int lines;
+    int score;
 
 
     public TetrisManager() {
@@ -139,6 +144,7 @@ public class TetrisManager {
         int x = left_x;
         int y = top_y;
         int BlockCount = 0;
+        int lineCount = 0;
 
         while(x < right_x && y < bottom_y){
 
@@ -170,6 +176,24 @@ public class TetrisManager {
 
                     }
 
+                    lineCount++;
+                    lines++;
+
+                    // Drop speed
+                    // if the line score hit's a certain number, increase the drop speed
+                    // 1 is the fastest
+
+                    if(lines % 5 == 0 && DropInterval > 1){
+
+                        level++;
+                        if(DropInterval > 10){
+                            DropInterval -= 5;
+                        }
+                        else{
+                            DropInterval--;
+                        }
+                    }
+
                     // a line has been deleted so need to slide down all other blocks that are above it
                     for(int i=0;i<staticsBlocks.size();i++){
                         // if a block is abovs the current y, move it down by the block size
@@ -186,6 +210,12 @@ public class TetrisManager {
             }
 
 
+        }
+
+        // Add Score
+        if(lineCount > 0){
+            int singleLineScore = 10 * level;
+            score += singleLineScore * lineCount;
         }
     }
 
@@ -220,6 +250,18 @@ public class TetrisManager {
         g2.setFont(new Font("Arial", Font.BOLD, 30));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawString("NEXT", x+60, y+50);
+
+        // Draw Score
+        g2.setColor(Color.BLACK);
+        g2.drawRect(x, top_y,250,300);
+        g2.setColor(Color.RED);
+        x += 40;
+        y = top_y + 90;
+        g2.drawString("LEVEL: " + level, x, y);
+        y += 70;
+        g2.drawString("LINES: " + lines, x, y);
+        y += 70;
+        g2.drawString("SCORE: " + score, x, y);
 
         // Draw the CurrentMino
         if(CurrentMino != null){
