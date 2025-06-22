@@ -1,6 +1,8 @@
-package Main;
+package Tetris;
 
-public class Main {
+import Tetris.TetrisManage.*;
+
+public class TetrisGame {
     public static void main(String[] args) {
 
         TetrisDisplay display = new TetrisDisplay();

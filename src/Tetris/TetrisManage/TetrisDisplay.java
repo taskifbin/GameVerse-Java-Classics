@@ -1,4 +1,4 @@
-package Main;
+package Tetris.TetrisManage;
 
 import javax.swing.*;
 

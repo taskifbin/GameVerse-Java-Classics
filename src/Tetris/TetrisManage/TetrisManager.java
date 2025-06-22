@@ -1,10 +1,10 @@
-package Main;
+package Tetris.TetrisManage;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Mino.*;
+import Tetris.Mino.*;
 
 public class TetrisManager {
 
@@ -17,7 +17,7 @@ public class TetrisManager {
     public static int bottom_y;
 
 
-    // Mino
+    // Tetris.Mino
     Mino CurrentMino;
     final int MINO_START_X;
     final int MINO_START_Y;
@@ -25,7 +25,7 @@ public class TetrisManager {
     // Tetris Drop
     public static int DropInterval = 30; // mino drops in every 45 frames
 
-    // Next Mino
+    // Next Tetris.Mino
     Mino NextMino;
     final int NEXT_MINO_X;
     final int NEXT_MINO_Y;
@@ -53,15 +53,15 @@ public class TetrisManager {
         top_y = 80;
         bottom_y = top_y + HEIGHT;
 
-        // Mino Start Position
+        // Tetris.Mino Start Position
         MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
         MINO_START_Y = top_y + Block.SIZE;
 
-        // Set the Starting Mino
+        // Set the Starting Tetris.Mino
         CurrentMino = RandomMino();
         CurrentMino.setXY(MINO_START_X, MINO_START_Y);
 
-        // Next Mino
+        // Next Tetris.Mino
         NEXT_MINO_X = right_x + 175;
         NEXT_MINO_Y = top_y + 620;
 
@@ -73,7 +73,7 @@ public class TetrisManager {
 
     private Mino RandomMino() {
 
-        // Get a random Mino
+        // Get a random Tetris.Mino
         Mino mino = null;
         int rand = new Random().nextInt(7);
 
@@ -124,7 +124,7 @@ public class TetrisManager {
 
             CurrentMino.deactivating = false;
 
-            // replace the currentMino with the NEXT Mino
+            // replace the currentMino with the NEXT Tetris.Mino
             CurrentMino = NextMino;
             CurrentMino.setXY(MINO_START_X, MINO_START_Y);
             NextMino = RandomMino();
@@ -268,7 +268,7 @@ public class TetrisManager {
             CurrentMino.draw(g2);
         }
 
-        // Draw the Next Mino
+        // Draw the Next Tetris.Mino
         NextMino.draw(g2);
 
         // Draw static array blocks

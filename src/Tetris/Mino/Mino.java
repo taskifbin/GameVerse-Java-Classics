@@ -1,7 +1,7 @@
-package Mino;
+package Tetris.Mino;
 
 import java.awt.*;
-import Main.*;
+import Tetris.TetrisManage.*;
 
 
 public class Mino {
@@ -9,7 +9,7 @@ public class Mino {
     public Block b[] = new Block[4];
     public Block tempB[] = new Block[4];
     int AutoDropCounter = 0;
-    public int direction = 1; // Each Mino have 4 Direction for Rotation
+    public int direction = 1; // Each Tetris.Mino have 4 Direction for Rotation
     boolean leftCollision, rightCollision, downCollision;
     public boolean active = true;
     public boolean deactivating;

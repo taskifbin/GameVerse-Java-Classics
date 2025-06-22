@@ -3,7 +3,7 @@ package ClassicalSnake;
 import javax.swing.*;
 
 public class SnakeGame{
-    SnakeGame(){
+    public SnakeGame(){
         JFrame frame=new JFrame("Classical Snake Game");
        // GameBoard board=new GameBoard(new GameController());
         //frame.add(board);

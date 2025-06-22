@@ -1,9 +1,7 @@
-package Main;
+package Tetris.TetrisManage;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 
 public class TetrisPanel extends JPanel implements Runnable {
     public static final int WIDTH = 1400;
