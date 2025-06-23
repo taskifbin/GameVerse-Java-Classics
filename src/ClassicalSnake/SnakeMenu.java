@@ -45,9 +45,9 @@ public class SnakeMenu extends JPanel{
     }
 
     private void returnMenu() {
-        SnakeMenu menu=new SnakeMenu(fm);
-        switchPanel(menu);
+        fm.dispose();
     }
+
     private void switchPanel(JPanel nextpanel){
         fm.setContentPane(nextpanel);
         fm.revalidate();

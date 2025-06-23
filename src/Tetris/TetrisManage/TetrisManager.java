@@ -73,7 +73,7 @@ public class TetrisManager {
 
         NextMino = RandomMino();
         NextMino.setXY(NEXT_MINO_X, NEXT_MINO_Y);
-
+//
 
     }
 
@@ -108,8 +108,6 @@ public class TetrisManager {
         }
         return mino;
     }
-
-
 
     public void update() {
 
