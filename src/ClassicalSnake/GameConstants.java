@@ -5,5 +5,5 @@ public interface GameConstants {
     int ScreenHeight = 630;
     int unit = 20;
     int gameUnit = (ScreenHeight * ScreenWidth) / (unit * unit);
-    int Delay = 80;
+    int Delay = 40;
 }

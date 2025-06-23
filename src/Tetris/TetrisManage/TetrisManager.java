@@ -8,6 +8,8 @@ import Tetris.Mino.*;
 
 public class TetrisManager {
 
+
+
     // Main.Main Play Area
     final int WIDTH = 360;
     final int HEIGHT = 720;
@@ -39,10 +41,14 @@ public class TetrisManager {
     // Game over
     boolean GameOver;
 
-    // Score
+
+    //Score Box
+    private int currentScore = 0;
+    private int highScore = 0;
+    private String currentUser = "player1"; // Replace with real username later
     int level = 1;
     int lines;
-    int score;
+    public int score;
 
 
     public TetrisManager() {
@@ -120,6 +126,15 @@ public class TetrisManager {
             if(CurrentMino.b[0].x == MINO_START_X && CurrentMino.b[0].y == MINO_START_Y){
                 // that means mino did not change it's possible from starting position
                 GameOver = true;
+                 // Save score to DB
+
+            }
+
+            if (GameOver) {
+
+                currentScore = 0;
+                // Reset score
+                // Show "Game Over" message, etc.
             }
 
             CurrentMino.deactivating = false;
@@ -215,8 +230,13 @@ public class TetrisManager {
         // Add Score
         if(lineCount > 0){
             int singleLineScore = 10 * level;
-            score += singleLineScore * lineCount;
+            currentScore += singleLineScore * lineCount;
+            score = currentScore;
+            if (currentScore > highScore) {
+                highScore = currentScore;
+            }
         }
+
     }
 
     public void draw(Graphics2D g2) {
@@ -253,7 +273,7 @@ public class TetrisManager {
 
         // Draw Score
         g2.setColor(Color.BLACK);
-        g2.drawRect(x, top_y,250,300);
+        g2.drawRect(x, top_y,300,320);
         g2.setColor(Color.RED);
         x += 40;
         y = top_y + 90;
@@ -262,6 +282,8 @@ public class TetrisManager {
         g2.drawString("LINES: " + lines, x, y);
         y += 70;
         g2.drawString("SCORE: " + score, x, y);
+        y += 70;
+        g2.drawString("HIGH SCORE:"+ highScore, x, y);
 
         // Draw the CurrentMino
         if(CurrentMino != null){
