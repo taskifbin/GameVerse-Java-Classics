@@ -1,3 +1,5 @@
+import ClassicalSnake.SnakeMenu;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -61,14 +63,25 @@ public class gameMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == snakeBtn) {
-            // Launch Snake game
-            try {
-                // Assuming SnakeGame has a static method to start the game
-                ClassicalSnake.Main.main(new String[]{});
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error launching Snake game: " + ex.getMessage());
-            }
-        } else if (e.getSource() == tetrisBtn) {
+            dispose(); // Close game menu
+            JFrame snakeFrame = new JFrame("Snake Game");
+            snakeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            snakeFrame.setSize(800, 600);
+            snakeFrame.setLocationRelativeTo(null);
+
+            SnakeMenu snakeMenu = new SnakeMenu(snakeFrame);
+            snakeFrame.setContentPane(snakeMenu);
+            snakeFrame.setVisible(true);
+
+            // Add window listener to reopen gameMenu when snake window is closed
+            snakeFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    new gameMenu(); // reopen game menu
+                }
+            });
+
+    } else if (e.getSource() == tetrisBtn) {
             // Launch Tetris game
             try {
                 // Assuming TetrisGame has a static method to start the game
@@ -77,14 +90,26 @@ public class gameMenu extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Error launching Tetris game: " + ex.getMessage());
             }
         } else if (e.getSource() == flappyBirdBtn) {
-            // Launch Flappy Bird game
-            try {
-                // Assuming FlappyBirdGame has a static method to start the game
-               FlappyBird.FlappyBird.main(new String[]{});
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error launching Flappy Bird game: " + ex.getMessage());
-            }
-        } else if (e.getSource() == logoutBtn) {
+            dispose(); // Close Game Menu
+            JFrame flappyFrame = new JFrame("Flappy Bird");
+            flappyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            flappyFrame.setSize(800, 600);
+            flappyFrame.setResizable(false);
+            flappyFrame.setLocationRelativeTo(null);
+
+            FlappyBird.GamePanel gamePanel = new FlappyBird.GamePanel(FlappyBird.MainMenu.getHighScore(), flappyFrame);
+            flappyFrame.setContentPane(gamePanel);
+            flappyFrame.setVisible(true);
+
+            // When Flappy Bird window is closed, re-open Game Menu
+            flappyFrame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    new gameMenu();
+                }
+            });
+
+    } else if (e.getSource() == logoutBtn) {
             // Logout and return to Login screen
             dispose();
             new login(); // Assuming the Login class is in the login package

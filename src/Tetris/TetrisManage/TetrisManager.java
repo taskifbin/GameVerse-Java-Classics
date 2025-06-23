@@ -109,8 +109,6 @@ public class TetrisManager {
         return mino;
     }
 
-
-
     public void update() {
 
         // Check if current mino is active
