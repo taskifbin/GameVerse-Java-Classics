@@ -81,15 +81,17 @@ public class gameMenu extends JFrame implements ActionListener {
                 }
             });
 
-    } else if (e.getSource() == tetrisBtn) {
-            // Launch Tetris game
-            try {
-                // Assuming TetrisGame has a static method to start the game
-                Tetris.TetrisGame.main(new String[]{});
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error launching Tetris game: " + ex.getMessage());
-            }
-        } else if (e.getSource() == flappyBirdBtn) {
+        } else if (e.getSource() == tetrisBtn) {
+            dispose(); // Close game menu
+
+            // Launch Tetris with callback to reopen menu on close
+            SwingUtilities.invokeLater(() -> {
+                new Tetris.TetrisManage.TetrisDisplay(() -> {
+                    new gameMenu(); // reopen game menu after Tetris closes
+                });
+            });
+
+    } else if (e.getSource() == flappyBirdBtn) {
             dispose(); // Close Game Menu
             JFrame flappyFrame = new JFrame("Flappy Bird");
             flappyFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
