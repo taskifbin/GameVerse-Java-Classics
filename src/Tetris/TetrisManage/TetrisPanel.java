@@ -77,4 +77,8 @@ public class TetrisPanel extends JPanel implements Runnable {
 
         tetrisManager.draw(g2);
     }
+    public void stopGame() {
+        TetrisThread = null;
+    }
+
 }
