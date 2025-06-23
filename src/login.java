@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 public class login extends JFrame implements ActionListener{
@@ -17,36 +18,54 @@ public class login extends JFrame implements ActionListener{
             }
 
             setTitle("Login");
-            setSize(400, 300);
+            setSize(700, 600);
             setLayout(null);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
 
+            // Set background image using setContentPane()
+            ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/log_bg.jpg")); // use absolute classpath
+            JLabel background = new JLabel(backgroundImage);
+            setContentPane(background); // This sets the background correctly
+            background.setLayout(null); // Must set layout here for absolute positioning
+
+
+            int centerX = getWidth() / 2 - 100;
+
+
             userLabel = new JLabel("Username:");
-            userLabel.setBounds(30, 50, 100, 30);
-            add(userLabel);
+            userLabel.setBounds(centerX - 130, 180, 150, 30);
+            background.add(userLabel);
 
             userField = new JTextField();
-            userField.setBounds(150, 50, 150, 30);
-            add(userField);
+            userField.setBounds(centerX, 180, 200, 30);
+            background.add(userField);
 
             passLabel = new JLabel("Password:");
-            passLabel.setBounds(30, 100, 100, 30);
-            add(passLabel);
+            passLabel.setBounds(centerX - 130, 230, 150, 30);
+            background.add(passLabel);
 
             passField = new JPasswordField();
-            passField.setBounds(150, 100, 150, 30);
-            add(passField);
+            passField.setBounds(centerX, 230, 200, 30);
+            background.add(passField);
 
+
+            // Style buttons
             loginBtn = new JButton("Login");
-            loginBtn.setBounds(100, 150, 100, 30);
+            loginBtn.setBounds(centerX + 50, 300, 100, 40);
+            loginBtn.setFocusPainted(false);
+            loginBtn.setBackground(new Color(230, 240, 255));
+            loginBtn.setForeground(Color.BLACK);
             loginBtn.addActionListener(this);
-            add(loginBtn);
+            background.add(loginBtn);
 
             registerBtn = new JButton("Register");
-            registerBtn.setBounds(210, 150, 100, 30);
+            registerBtn.setBounds(centerX + 30, 360, 140, 40);
+            registerBtn.setFocusPainted(false);
+            registerBtn.setBackground(new Color(200, 220, 255));
+            registerBtn.setForeground(Color.BLACK);
             registerBtn.addActionListener(this);
-            add(registerBtn);
+            background.add(registerBtn);
 
             setVisible(true);
         }

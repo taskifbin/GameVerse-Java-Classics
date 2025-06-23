@@ -11,7 +11,7 @@ public class gameMenu extends JFrame implements ActionListener {
 
     public gameMenu() {
         setTitle("Game Menu");
-        setSize(1000, 800);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -24,7 +24,7 @@ public class gameMenu extends JFrame implements ActionListener {
         // Snake Button
         ImageIcon snakeIcon = new ImageIcon(getClass().getResource("/images/snake_icon.png"));
         snakeBtn = new JButton(snakeIcon);
-        snakeBtn.setBounds(100,100,250,250); // Adjust size as needed
+        snakeBtn.setBounds(80,100,200,200); // Adjust size as needed
         snakeBtn.setContentAreaFilled(false);
         snakeBtn.setBorderPainted(false);
         snakeBtn.addActionListener(this);
@@ -33,7 +33,7 @@ public class gameMenu extends JFrame implements ActionListener {
         // Tetris Button
         ImageIcon tetrisIcon = new ImageIcon(getClass().getResource("/images/tetris_icon.png"));
         tetrisBtn = new JButton(tetrisIcon);
-        tetrisBtn.setBounds(360, 100, 250, 250);
+        tetrisBtn.setBounds(285, 100, 200, 200);
         tetrisBtn.setContentAreaFilled(false);
         tetrisBtn.setBorderPainted(false);
         tetrisBtn.addActionListener(this);
@@ -42,7 +42,7 @@ public class gameMenu extends JFrame implements ActionListener {
         // Flappy Bird Button
         ImageIcon flappyBirdIcon = new ImageIcon(getClass().getResource("/images/flappy_bird_icon.png"));
         flappyBirdBtn = new JButton(flappyBirdIcon);
-        flappyBirdBtn.setBounds(620, 100, 250, 250);
+        flappyBirdBtn.setBounds(490, 100, 200, 200);
         flappyBirdBtn.setContentAreaFilled(false);
         flappyBirdBtn.setBorderPainted(false);
         flappyBirdBtn.addActionListener(this);
@@ -50,7 +50,7 @@ public class gameMenu extends JFrame implements ActionListener {
 
         // Logout Button
         logoutBtn = new JButton("Logout");
-        logoutBtn.setBounds(100, 240, 200, 30);
+        logoutBtn.setBounds(300, 600, 200, 80);
         logoutBtn.addActionListener(this);
         background.add(logoutBtn);
 
