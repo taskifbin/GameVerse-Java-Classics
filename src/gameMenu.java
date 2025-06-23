@@ -24,7 +24,7 @@ public class gameMenu extends JFrame implements ActionListener {
         // Snake Button
         ImageIcon snakeIcon = new ImageIcon(getClass().getResource("/images/snake_icon.png"));
         snakeBtn = new JButton(snakeIcon);
-        snakeBtn.setBounds(70,100,200,200); // Adjust size as needed
+        snakeBtn.setBounds(80,100,200,200); // Adjust size as needed
         snakeBtn.setContentAreaFilled(false);
         snakeBtn.setBorderPainted(false);
         snakeBtn.addActionListener(this);

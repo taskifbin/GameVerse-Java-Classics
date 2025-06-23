@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TetrisPanel extends JPanel implements Runnable {
-    public static final int WIDTH = 1400;
-    public static final int HEIGHT = 1000;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 900;
     final int FPS = 60;
 
     Thread TetrisThread;
@@ -17,6 +17,7 @@ public class TetrisPanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.setBackground(Color.LIGHT_GRAY);
         this.setLayout(null);
+
 
         // Implement KeyListener
         this.addKeyListener(new TetrisKeyHandle());
@@ -65,6 +66,14 @@ public class TetrisPanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+        ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/tetris_bg.jpg")); // use absolute classpath
+        JLabel background = new JLabel(backgroundImage);
+        background.setLayout(null);
+        // Draw the background image to fill the panel
+        if (backgroundImage != null) {
+            g2.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+        }
+
 
         tetrisManager.draw(g2);
     }

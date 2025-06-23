@@ -273,7 +273,10 @@ public class TetrisManager {
 
         // Draw Score
         g2.setColor(Color.BLACK);
-        g2.drawRect(x, top_y,300,320);
+        g2.fillRect(x,top_y+10,300,320);
+        g2.setColor(Color.GREEN);
+        g2.drawRect(x, top_y+10,300,320);
+
         g2.setColor(Color.RED);
         x += 40;
         y = top_y + 90;
