@@ -80,7 +80,7 @@ public class gameMenu extends JFrame implements ActionListener {
             // Launch Flappy Bird game
             try {
                 // Assuming FlappyBirdGame has a static method to start the game
-               // FlappyBird.FlappyBirdGame.main(new String[]{});
+               FlappyBird.FlappyBird.main(new String[]{});
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Error launching Flappy Bird game: " + ex.getMessage());
             }
