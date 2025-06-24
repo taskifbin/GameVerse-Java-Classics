@@ -1,6 +1,7 @@
 import ClassicalSnake.SnakeMenu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class gameMenu extends JFrame implements ActionListener {
@@ -11,7 +12,10 @@ public class gameMenu extends JFrame implements ActionListener {
     // Background Image
     JLabel backgroundLabel;
 
-    public gameMenu() {
+    private String playerName;
+    public gameMenu(String fullName) {
+        this.playerName = fullName;
+
         setTitle("Game Menu");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,6 +26,14 @@ public class gameMenu extends JFrame implements ActionListener {
         JLabel background = new JLabel(backgroundImage);
         setContentPane(background); // This sets the background correctly
         background.setLayout(null); // Must set layout here for absolute positioning
+
+        JLabel nameLabel = new JLabel("Welcome, " + playerName + "!");
+        nameLabel.setFont(new Font("Times New Roman", Font.BOLD, 28));
+        nameLabel.setForeground(Color.BLUE);
+        nameLabel.setBounds(0, 20, 800, 40); // Full width
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        background.add(nameLabel);
+
 
         // Snake Button
         ImageIcon snakeIcon = new ImageIcon(getClass().getResource("/images/snake_icon.png"));
@@ -77,7 +89,7 @@ public class gameMenu extends JFrame implements ActionListener {
             snakeFrame.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
-                    new gameMenu(); // reopen game menu
+                    new gameMenu(DatabaseManager.getName());// reopen game menu
                 }
             });
 
@@ -87,7 +99,7 @@ public class gameMenu extends JFrame implements ActionListener {
             // Launch Tetris with callback to reopen menu on close
             SwingUtilities.invokeLater(() -> {
                 new Tetris.TetrisManage.TetrisDisplay(() -> {
-                    new gameMenu(); // reopen game menu after Tetris closes
+                    new gameMenu(getName()); // reopen game menu after Tetris closes
                 });
             });
 
@@ -107,7 +119,7 @@ public class gameMenu extends JFrame implements ActionListener {
             flappyFrame.addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosed(WindowEvent e) {
-                    new gameMenu();
+                    new gameMenu(getName());
                 }
             });
 
@@ -119,6 +131,6 @@ public class gameMenu extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new gameMenu());
+        SwingUtilities.invokeLater(() -> new gameMenu("y"));
     }
 }
