@@ -24,7 +24,7 @@ public class login extends JFrame implements ActionListener{
             setLocationRelativeTo(null);
 
             // Set background image using setContentPane()
-            ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/log_bg.jpg")); // use absolute classpath
+            ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/log_bg.jpg"));
             JLabel background = new JLabel(backgroundImage);
             setContentPane(background); // This sets the background correctly
             background.setLayout(null); // Must set layout here for absolute positioning
