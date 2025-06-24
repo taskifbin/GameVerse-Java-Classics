@@ -49,7 +49,7 @@ public class login extends JFrame implements ActionListener{
             passField.setBounds(centerX, 230, 200, 30);
             background.add(passField);
 
-
+//new
             // Style buttons
             loginBtn = new JButton("Login");
             loginBtn.setBounds(centerX + 50, 300, 100, 40);
