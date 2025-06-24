@@ -85,8 +85,16 @@ public class login extends JFrame implements ActionListener{
                     if (rs.next()) {
                         JOptionPane.showMessageDialog(this, "Login Successful!");
                         dispose();
-                        new gameMenu();
-                    } else {
+
+                        // fetch the full “name” column for display
+                        String fullName = DatabaseManager.getName();
+                        if (fullName == null) {
+                            fullName = username;  // fallback
+                        }
+
+                        new gameMenu(fullName);
+
+                } else {
                         JOptionPane.showMessageDialog(this, "Invalid Credentials!");
                     }
                 } catch (SQLException ex) {
