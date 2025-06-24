@@ -71,9 +71,8 @@ GameVerse-Java-Classics/
 ├── ClassicalSnake/
 ├── FlappyBird/
 ├── Tetris/
-├── database/              # SQL file and DB logic
-├── utils/                 # Helper classes (e.g., DB connection)
-├── assets/                # Images, sounds, etc.
+├── DataBase/              # SQL file and DB logic
+├── GameVerseManager       # Images, sounds, etc.
 ├── Main.java              # Entry point
 └── README.md
 ```
