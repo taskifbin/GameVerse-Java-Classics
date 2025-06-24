@@ -72,7 +72,7 @@ GameVerse-Java-Classics/
 ├── FlappyBird/
 ├── Tetris/
 ├── DataBase/              # SQL file and DB logic
-├── GameVerseManager       # Images, sounds, etc.
+├── GameVerseManager       # Manage, Images, sounds etc.
 ├── Main.java              # Entry point
 └── README.md
 ```
