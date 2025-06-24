@@ -32,7 +32,7 @@ public class TetrisDisplay {
         controlPanel.add(exitBtn);
         TetrisFrame.add(controlPanel, BorderLayout.SOUTH);
 
-        // Add listener to reopen gameMenu
+        // Add listener to reopen GameVerseManager.gameMenu
         TetrisFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {

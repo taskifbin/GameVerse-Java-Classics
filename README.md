@@ -9,7 +9,7 @@
 ## 🧩 Features
 
 - 🎮 Play **three classic games** with intuitive keyboard controls.
-- 👤 Simple login/signup system connected to **MySQL** via XAMPP.
+- 👤 Simple GameVerseManager.login/signup system connected to **MySQL** via XAMPP.
 - 🏆 Score tracking and leaderboard system for each game.
 - 📊 Visual game stats (charts/graphs using JFreeChart).
 - 💾 Persistent storage of user data using JDBC.

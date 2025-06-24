@@ -1,3 +1,5 @@
+package GameVerseManager;
+
 import ClassicalSnake.SnakeMenu;
 
 import javax.swing.*;
@@ -5,6 +7,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
+import DataBase.DatabaseManager;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -185,7 +188,7 @@ public class gameMenu extends JFrame implements ActionListener {
             snakeFrame.setContentPane(snakeMenu);
             snakeFrame.setVisible(true);
 
-            // Add window listener to reopen gameMenu when snake window is closed
+            // Add window listener to reopen GameVerseManager.gameMenu when snake window is closed
             snakeFrame.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosed(java.awt.event.WindowEvent e) {
@@ -253,7 +256,7 @@ public class gameMenu extends JFrame implements ActionListener {
         } else if (e.getSource() == logoutBtn) {
             // Logout and return to Login screen
             dispose();
-            new login(); // Assuming the Login class is in the login package
+            new login(); // Assuming the Login class is in the GameVerseManager.login package
         }
     }
 

@@ -1,3 +1,7 @@
+package GameVerseManager;
+
+import DataBase.DatabaseManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
