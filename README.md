@@ -49,6 +49,18 @@
 
 - Import the included gameverse.sql file into phpMyAdmin to create the database.
 
+- In phpMyAdmin (XAMPP), open "game_db" database and run this sql
+  ```sql
+      id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(255),
+    email VARCHAR(100),
+    age INT,
+    gender VARCHAR(10)
+  );
+  ```
+
 3. **Configure JDBC**:
 
 - Update the database credentials in your Java code (usually found in a DBConnection.java or similar file).
@@ -118,3 +130,4 @@ Feel free to fork, improve, and build on it for learning purposes!
 ## 📫 Contact
 
 Have questions or feedback? Reach out via GitHub Issues or email.
+
