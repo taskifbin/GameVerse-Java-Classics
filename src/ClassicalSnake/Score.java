@@ -10,12 +10,17 @@ public class Score {
             highScore = currentScore;
         }
     }
+
     public int getCurrentScore() {
         return currentScore;
     }
 
     public int getHighScore() {
         return highScore;
+    }
+
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
     }
 
     public void reset() {

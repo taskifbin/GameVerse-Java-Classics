@@ -4,8 +4,9 @@ import java.sql.*;
 
 public class DatabaseManager {
     private static final String URL = "jdbc:mysql://localhost:3306/game_db";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String USER = "gameuser";
+    private static final String PASSWORD = "gamePass1!";
+
 
     public static String getName() {
         String sql = "SELECT name FROM users WHERE username = ?";

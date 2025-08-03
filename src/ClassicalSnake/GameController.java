@@ -1,5 +1,7 @@
 package ClassicalSnake;
 
+import DataBase.DatabaseManager;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
@@ -8,6 +10,9 @@ import javax.swing.*;
 public class GameController implements GameConstants{
 
     private JFrame frame;
+
+    private String username;
+
 
     private final int[] snakeX = new int[gameUnit];
     private final int[] snakeY = new int[gameUnit];
@@ -25,6 +30,14 @@ public class GameController implements GameConstants{
 
     private Score score=new Score();
 
+    public GameController(JFrame frame, String username) {
+        this.frame = frame;
+        this.username = username;
+        random = new Random();
+        snakeX[0] = unit * 5;
+        snakeY[0] = 30 +  unit * 5;
+        startGame();
+    }
 
     public GameController(JFrame frame) {
         this.frame = frame;
@@ -37,6 +50,7 @@ public class GameController implements GameConstants{
 
     public void startGame(){
         score.reset();
+        score.setHighScore(DatabaseManager.getHighScore(username, "snake"));
         placeApple();
         running = true;
         timer = new Timer(Delay, e -> update());
@@ -50,7 +64,7 @@ public class GameController implements GameConstants{
     }
     public void update(){
         if(!running) {return;}
-        System.out.println("Snake Head: (" + snakeX[0] + ", " + snakeY[0] + ")");
+        //System.out.println("Snake Head: (" + snakeX[0] + ", " + snakeY[0] + ")");
         move();
         checkApple();
         checkCollision();
@@ -61,30 +75,30 @@ public class GameController implements GameConstants{
 
     }
     public void draw(Graphics g){
-       if(running){
-           //Draw apple
-           g.setColor(Color.RED);
-           g.fillOval(appleX, appleY, unit, unit);
-           g.setColor(Color.BLACK);
-           g.drawOval(appleX, appleY, unit, unit); // Apple border
+        if(running){
+            //Draw apple
+            g.setColor(Color.RED);
+            g.fillOval(appleX, appleY, unit, unit);
+            g.setColor(Color.BLACK);
+            g.drawOval(appleX, appleY, unit, unit); // Apple border
 
-           g.setColor(Color.RED);
-           g.fillOval(appleX, appleY, unit, unit);
+            g.setColor(Color.RED);
+            g.fillOval(appleX, appleY, unit, unit);
 
-           //Draw Snake
-           for (int i = 0; i < bodyParts; i++){
-               if(i == 0){
-                   g.setColor(Color.GREEN);
-               }
-               else {
-                   g.setColor(new Color(0, 100, 0));
-               }
-               g.fillOval(snakeX[i], snakeY[i], unit, unit);
-               g.setColor(Color.BLACK);
-               g.drawOval(snakeX[i], snakeY[i], unit, unit);
-           }
-       }
-       else gameOver(g);
+            //Draw Snake
+            for (int i = 0; i < bodyParts; i++){
+                if(i == 0){
+                    g.setColor(Color.GREEN);
+                }
+                else {
+                    g.setColor(new Color(0, 100, 0));
+                }
+                g.fillOval(snakeX[i], snakeY[i], unit, unit);
+                g.setColor(Color.BLACK);
+                g.drawOval(snakeX[i], snakeY[i], unit, unit);
+            }
+        }
+        else gameOver(g);
     }
     public void setRepaintCallback(Runnable repaintCallback) {
         this.repaintCallback = repaintCallback;
@@ -147,6 +161,8 @@ public class GameController implements GameConstants{
             if (snakeX[0] == snakeX[i] && snakeY[0] == snakeY[i]) {
                 running = false;
                 timer.stop();
+                score.setHighScore(DatabaseManager.getHighScore(username, "snake"));
+
             }
         }
 
@@ -176,7 +192,7 @@ public class GameController implements GameConstants{
                 break;
 
         }
-        System.out.println("Direction: " + direction);
+        //System.out.println("Direction: " + direction);
     }
 
 }
